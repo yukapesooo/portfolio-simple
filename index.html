@@ -8,12 +8,909 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Inter, sans-serif; margin:0; padding:40px; background:#f8fafc; color:#0f172a;}
-    h1 { font-family: Newsreader, serif; font-size:2.5rem; }
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #475569;
+      --heading: #0f172a;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-soft: #dbeafe;
+      --success-soft: #ecfdf5;
+      --success: #059669;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --max-width: 1120px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(248, 250, 252, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      font-weight: 700;
+      color: var(--heading);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero-wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 3rem;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-tag::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Newsreader', serif;
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--heading);
+      max-width: 820px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      max-width: 700px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .stat {
+      min-width: 150px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-num {
+      display: block;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--heading);
+      line-height: 1.1;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 0.9rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--heading);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    /* GENERAL SECTIONS */
+    section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4.5rem;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Newsreader', serif;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      color: var(--heading);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-desc {
+      max-width: 740px;
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .divider {
+      max-width: var(--max-width);
+      margin: 0 auto 1.5rem;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.4rem;
+      box-shadow: var(--shadow-sm);
+      transition: 0.2s ease;
+      height: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: #d6e0ea;
+    }
+
+    .project-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .project-category {
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .project-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--heading);
+      line-height: 1.35;
+      margin-bottom: 0.7rem;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--surface-soft);
+      color: #334155;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.35rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .skill-group-title {
+      font-size: 0.84rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .skill-item {
+      color: var(--text);
+      font-size: 0.94rem;
+      display: flex;
+      gap: 0.55rem;
+      align-items: flex-start;
+    }
+
+    .skill-item::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* LAB LOG */
+    .lab-log {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .lab-log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .lab-log-title {
+      font-weight: 700;
+      color: var(--heading);
+      font-size: 0.95rem;
+    }
+
+    .lab-count {
+      background: var(--success-soft);
+      color: var(--success);
+      border: 1px solid #d1fae5;
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .lab-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      padding: 1.4rem;
+    }
+
+    .lab-unit {
+      background: #fbfdff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem;
+    }
+
+    .lab-unit-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 0.7rem;
+    }
+
+    .lab-unit-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .lab-unit-items li {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    /* CONTACT */
+    .contact-box {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-text h3 {
+      font-family: 'Newsreader', serif;
+      font-size: 2rem;
+      color: var(--heading);
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-text p {
+      color: var(--muted);
+      max-width: 620px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem 2.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* ANIMATION */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        padding: 2.25rem 1.25rem;
+        border-radius: 20px;
+      }
+
+      .hero-wrap {
+        padding-top: 2.25rem;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+      }
+
+      .stat {
+        width: 100%;
+      }
+
+      .contact-box {
+        padding: 1.5rem;
+      }
+
+      .contact-text h3 {
+        font-size: 1.65rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Yuka Sakai — IT Portfolio</h1>
-  <p>This is your clean portfolio template. Replace with full content as needed.</p>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Yuka Sakai / IT Portfolio</a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#labs">Lab Log</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="hero-wrap">
+    <div class="hero">
+      <div class="hero-tag">Open to IT Opportunities</div>
+      <h1>Aspiring IT Professional with a <em>practical, hands-on foundation</em></h1>
+      <p class="hero-sub">
+        Portfolio showcasing hands-on lab experience in hardware, networking, troubleshooting, security, and cloud fundamentals through CompTIA A+ training.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">80+</span>
+          <span class="stat-label">Lab Hours</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">40+</span>
+          <span class="stat-label">Simulations</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">10</span>
+          <span class="stat-label">Domain Areas</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <section id="projects">
+    <div class="section-label fade-in">Technical Projects</div>
+    <h2 class="section-title fade-in">Hands-On Lab Projects</h2>
+    <p class="section-desc fade-in">
+      Each project below is based on CompTIA A+ simulation labs and presented as practical examples of troubleshooting, configuration, and technical decision-making.
+    </p>
+
+    <div class="projects-grid">
+      <div class="project-card fade-in">
+        <div class="project-icon">🖥️</div>
+        <div class="project-category">Hardware</div>
+        <div class="project-title">Desktop System Build &amp; Configuration</div>
+        <p class="project-desc">Assembled a full desktop workstation from components, including motherboard, power supply, SATA storage, RAM, and video card. Verified successful setup and system stability.</p>
+        <div class="project-tags">
+          <span class="tag">Motherboards</span>
+          <span class="tag">SATA</span>
+          <span class="tag">RAM</span>
+          <span class="tag">PSU</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-icon">🔌</div>
+        <div class="project-category">Hardware</div>
+        <div class="project-title">Dual-Monitor A/V Workstation Setup</div>
+        <p class="project-desc">Configured a dual-monitor setup and A/V workstation using both modern and legacy cabling. Installed display drivers and verified extended desktop functionality.</p>
+        <div class="project-tags">
+          <span class="tag">DisplayPort</span>
+          <span class="tag">HDMI</span>
+          <span class="tag">Legacy Cables</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-icon">⚙️</div>
+        <div class="project-category">Troubleshooting</div>
+        <div class="project-title">BIOS/UEFI Security &amp; Boot Diagnostics</div>
+        <p class="project-desc">Configured BIOS/UEFI settings, reviewed boot order and security options, and resolved startup and drive availability issues through structured troubleshooting.</p>
+        <div class="project-tags">
+          <span class="tag">BIOS/UEFI</span>
+          <span class="tag">Boot</span>
+          <span class="tag">Security</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-icon">🌐</div>
+        <div class="project-category">Networking</div>
+        <div class="project-title">Cross-Platform Network Connectivity Diagnostics</div>
+        <p class="project-desc">Diagnosed and resolved a connectivity failure on a workstation moving from a corporate domain to a SOHO environment using ping tests and TCP/IP auditing.</p>
+        <div class="project-tags">
+          <span class="tag">TCP/IP</span>
+          <span class="tag">DHCP</span>
+          <span class="tag">ping</span>
+          <span class="tag">SOHO</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-icon">📡</div>
+        <div class="project-category">Networking</div>
+        <div class="project-title">SOHO Wireless Network Installation</div>
+        <p class="project-desc">Installed and secured a small office/home office Wi-Fi network, configured wireless security settings, and connected devices through switching infrastructure.</p>
+        <div class="project-tags">
+          <span class="tag">Wi-Fi</span>
+          <span class="tag">WPA2</span>
+          <span class="tag">Switch</span>
+          <span class="tag">Patch Panel</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-icon">☁️</div>
+        <div class="project-category">Cloud</div>
+        <div class="project-title">Azure VM Management &amp; Virtualization</div>
+        <p class="project-desc">Worked with Azure interfaces to provision virtual machines, manage storage resources, and create virtual hard disks while building familiarity with cloud infrastructure concepts.</p>
+        <div class="project-tags">
+          <span class="tag">Azure</span>
+          <span class="tag">IaaS</span>
+          <span class="tag">VHD</span>
+          <span class="tag">Virtualization</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-icon">🖨️</div>
+        <div class="project-category">Print Devices</div>
+        <div class="project-title">Network Printer Installation &amp; Configuration</div>
+        <p class="project-desc">Selected, installed, and configured a printer for network use, enabling shared access for multiple workstations within a local environment.</p>
+        <div class="project-tags">
+          <span class="tag">Network Print</span>
+          <span class="tag">Driver Config</span>
+          <span class="tag">LAN</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-icon">📱</div>
+        <div class="project-category">Mobile Devices</div>
+        <div class="project-title">Mobile Device Management &amp; Docking</div>
+        <p class="project-desc">Managed mobile device settings and configured docking setups with monitors and peripherals to support practical workstation use.</p>
+        <div class="project-tags">
+          <span class="tag">MDM</span>
+          <span class="tag">Docking</span>
+          <span class="tag">Peripherals</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="skills">
+    <div class="section-label fade-in">Technical Skills</div>
+    <h2 class="section-title fade-in">Skills Matrix</h2>
+    <p class="section-desc fade-in">
+      Core competencies developed through CompTIA A+ Core 1 and Core 2 simulation training.
+    </p>
+
+    <div class="skills-grid">
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Networking</div>
+        <div class="skill-list">
+          <div class="skill-item">IPv4 / IPv6 Addressing</div>
+          <div class="skill-item">DHCP and DNS Configuration</div>
+          <div class="skill-item">SOHO Wi-Fi Setup and Security</div>
+          <div class="skill-item">Fiber and Copper Cabling</div>
+          <div class="skill-item">Patch Panels and Managed Switches</div>
+          <div class="skill-item">Proxy Server Configuration</div>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Hardware</div>
+        <div class="skill-list">
+          <div class="skill-item">Motherboard Installation</div>
+          <div class="skill-item">Power Supply Troubleshooting</div>
+          <div class="skill-item">SATA Device Installation</div>
+          <div class="skill-item">RAM Selection and Installation</div>
+          <div class="skill-item">GPU Upgrade and Troubleshooting</div>
+          <div class="skill-item">USB and Peripheral Devices</div>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">OS &amp; Security</div>
+        <div class="skill-list">
+          <div class="skill-item">BIOS/UEFI Configuration</div>
+          <div class="skill-item">BitLocker Encryption</div>
+          <div class="skill-item">NTFS Permissions</div>
+          <div class="skill-item">Active Directory Basics</div>
+          <div class="skill-item">Group Policy</div>
+          <div class="skill-item">Linux CLI Fundamentals</div>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Cloud &amp; Virtualization</div>
+        <div class="skill-list">
+          <div class="skill-item">Azure VM Provisioning</div>
+          <div class="skill-item">Azure Storage Management</div>
+          <div class="skill-item">Virtual Hard Disk (VHD) Creation</div>
+          <div class="skill-item">Client-Side Virtualization</div>
+          <div class="skill-item">IaaS Concepts</div>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Troubleshooting</div>
+        <div class="skill-list">
+          <div class="skill-item">CompTIA Troubleshooting Model</div>
+          <div class="skill-item">CLI Diagnostics (ping, ipconfig)</div>
+          <div class="skill-item">Boot and Startup Issue Resolution</div>
+          <div class="skill-item">Drive Availability Issues</div>
+          <div class="skill-item">Hardware Support Tickets</div>
+        </div>
+      </div>
+
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Mobile &amp; Print</div>
+        <div class="skill-list">
+          <div class="skill-item">Mobile Device Management</div>
+          <div class="skill-item">Laptop Dock Configuration</div>
+          <div class="skill-item">Network Printer Setup</div>
+          <div class="skill-item">Multifunction Device Configuration</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="labs">
+    <div class="section-label fade-in">Lab History</div>
+    <h2 class="section-title fade-in">Full Technical Lab Log</h2>
+    <p class="section-desc fade-in">
+      Completed through the CompTIA A+ CertMaster simulation environment and grouped by domain.
+    </p>
+
+    <div class="lab-log fade-in">
+      <div class="lab-log-header">
+        <span class="lab-log-title">Completed Technical Lab History</span>
+        <span class="lab-count">40+ Labs Completed</span>
+      </div>
+
+      <div class="lab-groups">
+        <div class="lab-unit">
+          <div class="lab-unit-title">2.0 Motherboards &amp; Connectors</div>
+          <ul class="lab-unit-items">
+            <li>2.1.2 — Explore the Lab Interface</li>
+            <li>2.1.7 — Install USB Devices</li>
+            <li>2.1.16 — Set Up a Desktop Computer</li>
+            <li>2.2.11 — Choose and Install a Motherboard</li>
+            <li>2.2.13 — Upgrade a Video Card</li>
+            <li>2.3.2 — Select and Configure Dual Monitors</li>
+            <li>2.4 — Set Up an A/V Workstation</li>
+          </ul>
+        </div>
+
+        <div class="lab-unit">
+          <div class="lab-unit-title">3.0 Installing System Devices</div>
+          <ul class="lab-unit-items">
+            <li>3.1.2 — Install a Power Supply</li>
+            <li>3.1.9 — Troubleshoot Power Supply Problems</li>
+            <li>3.2.12 — Install SATA Devices</li>
+            <li>3.3.4 — Select Memory by Sight</li>
+            <li>3.3.7 — Install Triple Channel Memory</li>
+            <li>3.5 — Challenge: Troubleshoot Memory</li>
+          </ul>
+        </div>
+
+        <div class="lab-unit">
+          <div class="lab-unit-title">4.0 Troubleshooting PC Hardware</div>
+          <ul class="lab-unit-items">
+            <li>4.1.2 — Find BIOS/UEFI Settings</li>
+            <li>4.1.10 — Configure BIOS/UEFI Security</li>
+            <li>4.2.2 — Troubleshoot System Power</li>
+            <li>4.2.4 — Troubleshoot System Startup</li>
+            <li>4.2.6 — Troubleshoot Boot Issues</li>
+            <li>4.2.10 — Troubleshoot Drive Availability</li>
+            <li>4.3.9 — Troubleshoot GPU</li>
+            <li>4.4 — Resolve PC Hardware Support Tickets</li>
+            <li>4.5 — Troubleshoot a Malfunctioning Computer</li>
+          </ul>
+        </div>
+
+        <div class="lab-unit">
+          <div class="lab-unit-title">5.0 Local Networking Hardware</div>
+          <ul class="lab-unit-items">
+            <li>5.2.2 — Select and Install a Network Adapter</li>
+            <li>5.2.5 — Connect Patch Panel Cables</li>
+            <li>5.2.8 — Connect Computers with a Switch</li>
+            <li>5.4.13 — Secure a Small Wireless Network</li>
+            <li>5.4.14 — SOHO Wi-Fi Configuration Settings</li>
+          </ul>
+        </div>
+
+        <div class="lab-unit">
+          <div class="lab-unit-title">6.0 Network Addressing &amp; Internet</div>
+          <ul class="lab-unit-items">
+            <li>6.1.4 — Connect a Cable Modem</li>
+            <li>6.1.6 — Connect Fiber Optic Cables</li>
+            <li>6.2.7 — Configure IP Addresses</li>
+            <li>6.5 — Challenge: Install a SOHO Network</li>
+          </ul>
+        </div>
+
+        <div class="lab-unit">
+          <div class="lab-unit-title">7.0 Supporting Network Services</div>
+          <ul class="lab-unit-items">
+            <li>7.2.2 — Use a Proxy Server</li>
+            <li>7.3.3 — Fix a Network Connection</li>
+            <li>7.4 — Troubleshoot a Network Issue</li>
+          </ul>
+        </div>
+
+        <div class="lab-unit">
+          <div class="lab-unit-title">8.0 Virtualization &amp; Cloud</div>
+          <ul class="lab-unit-items">
+            <li>8.1.3 — Explore Virtualization</li>
+            <li>8.1.6 — Create Virtual Hard Disks</li>
+            <li>8.2.4 — Use the Azure Interface</li>
+            <li>8.2.6 — Manage IaaS VMs in Azure</li>
+          </ul>
+        </div>
+
+        <div class="lab-unit">
+          <div class="lab-unit-title">9.0 Mobile Devices</div>
+          <ul class="lab-unit-items">
+            <li>9.1.4 — Manage Mobile Devices</li>
+            <li>9.1.11 — Configure Laptop Dock &amp; Peripherals</li>
+            <li>9.5 — Challenge: Mobile Hardware Support</li>
+          </ul>
+        </div>
+
+        <div class="lab-unit">
+          <div class="lab-unit-title">10.0 Print Devices</div>
+          <ul class="lab-unit-items">
+            <li>10.1.4 — Select and Install a Printer</li>
+            <li>10.1.10 — Configure Network Printing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="contact">
+    <div class="contact-box fade-in">
+      <div class="contact-text">
+        <h3>Let’s Connect</h3>
+        <p>
+          Currently seeking IT support or helpdesk opportunities. Open to both onsite and remote roles in the New York area.
+        </p>
+      </div>
+      <div class="contact-links">
+        <a href="https://linkedin.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+        <a href="mailto:your@email.com" class="btn btn-secondary">Email Me</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Built by Yuka Sakai · CompTIA A+ Candidate · New York, NY
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+  </script>
+
 </body>
 </html>
