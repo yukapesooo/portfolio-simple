@@ -9,17 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f7fb;
-      --surface: #ffffff;
-      --surface-2: #f8fafc;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --border-strong: #d1d5db;
-      --accent: #4f46e5;
-      --accent-soft: #eef2ff;
-      --shadow-sm: 0 1px 2px rgba(17,24,39,0.04);
-      --shadow-md: 0 10px 30px rgba(17,24,39,0.06);
+      --bg: #f5f5f3;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-solid: #ffffff;
+      --surface-soft: #fafaf9;
+      --text: #111111;
+      --muted: #6b6b6b;
+      --border: rgba(17, 17, 17, 0.08);
+      --border-strong: rgba(17, 17, 17, 0.12);
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.08);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.05);
+      --radius-xl: 32px;
       --radius-lg: 24px;
       --radius-md: 18px;
       --radius-sm: 12px;
@@ -31,9 +33,8 @@
     body {
       font-family: "Inter", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(79,70,229,0.05), transparent 24%),
-        radial-gradient(circle at top right, rgba(148,163,184,0.08), transparent 22%),
-        var(--bg);
+        radial-gradient(circle at top, rgba(255,255,255,0.95), transparent 40%),
+        linear-gradient(180deg, #f7f7f5 0%, #f3f3f1 100%);
       color: var(--text);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
@@ -46,9 +47,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(12px);
-      background: rgba(245, 247, 251, 0.82);
-      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(245, 245, 243, 0.72);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
@@ -64,65 +66,46 @@
     .nav-logo {
       font-size: 0.98rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text);
+      letter-spacing: -0.03em;
     }
 
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 1.4rem;
+      gap: 1.35rem;
       flex-wrap: wrap;
     }
 
     .nav-links a {
       font-size: 0.92rem;
-      font-weight: 500;
       color: var(--muted);
-      transition: color 0.2s ease;
+      font-weight: 500;
+      transition: color 0.18s ease;
     }
 
     .nav-links a:hover { color: var(--text); }
 
-    .hero-wrap {
+    .wrap {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 4.5rem 1.5rem 3rem;
+      padding: 0 1.5rem;
     }
 
     .hero {
-      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.98) 100%);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      box-shadow: var(--shadow-md);
-      padding: 4rem 3.25rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -80px;
-      top: -80px;
-      width: 260px;
-      height: 260px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(79,70,229,0.10) 0%, rgba(79,70,229,0) 70%);
-      pointer-events: none;
+      padding: 5.2rem 0 3.4rem;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.45rem 0.85rem;
+      gap: 0.45rem;
+      padding: 0.42rem 0.78rem;
+      border-radius: 999px;
       background: var(--accent-soft);
       color: var(--accent);
-      border-radius: 999px;
       font-size: 0.78rem;
       font-weight: 700;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.15rem;
     }
 
     .eyebrow::before {
@@ -134,129 +117,135 @@
     }
 
     h1 {
-      max-width: 760px;
-      font-size: clamp(2.8rem, 5vw, 4.8rem);
-      line-height: 0.98;
-      letter-spacing: -0.05em;
+      max-width: 840px;
+      font-size: clamp(3rem, 6vw, 5.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
       font-weight: 800;
-      margin-bottom: 1rem;
+      margin-bottom: 1.15rem;
     }
 
-    h1 .accent { color: var(--accent); }
+    h1 .muted-line {
+      display: block;
+      color: #3f3f46;
+      font-weight: 700;
+    }
 
     .hero-sub {
       max-width: 720px;
+      font-size: 1.02rem;
       color: var(--muted);
-      font-size: 1.04rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .stat {
-      min-width: 150px;
-      padding: 1rem 1.05rem;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.15rem;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.82rem;
+      margin-bottom: 2.1rem;
     }
 
     .hero-actions {
       display: flex;
-      gap: 0.85rem;
+      gap: 0.8rem;
       flex-wrap: wrap;
+      margin-bottom: 2.2rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.9rem 1.2rem;
+      padding: 0.9rem 1.18rem;
       border-radius: 999px;
       font-size: 0.94rem;
       font-weight: 700;
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
       border: 1px solid transparent;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
     }
 
     .btn:hover { transform: translateY(-1px); }
 
     .btn-primary {
-      background: var(--text);
-      color: white;
+      background: #111111;
+      color: #ffffff;
     }
 
-    .btn-primary:hover { background: #000; }
+    .btn-primary:hover { background: #000000; }
 
     .btn-secondary {
-      background: white;
+      background: rgba(255,255,255,0.72);
       border-color: var(--border);
       color: var(--text);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .btn-secondary:hover { border-color: var(--border-strong); background: var(--surface-2); }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.88);
+      border-color: var(--border-strong);
+    }
 
-    section {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4.5rem;
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      max-width: 780px;
+    }
+
+    .stat {
+      padding: 1.05rem 1.1rem;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.62);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.56);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.12rem;
+    }
+
+    .stat span {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 2rem 0 4.4rem;
     }
 
     .divider {
-      max-width: var(--max);
-      margin: 0 auto 1.2rem;
       border: none;
       border-top: 1px solid var(--border);
+      margin: 0;
     }
 
     .section-kicker {
+      color: var(--accent);
       font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
-      color: var(--accent);
       margin-bottom: 0.8rem;
     }
 
     .section-title {
       font-size: clamp(1.9rem, 3vw, 2.8rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+      line-height: 1.04;
+      letter-spacing: -0.05em;
       font-weight: 800;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.72rem;
     }
 
     .section-desc {
       max-width: 760px;
+      font-size: 0.98rem;
       color: var(--muted);
       margin-bottom: 2rem;
-      font-size: 1rem;
     }
 
-    .projects-grid,
-    .skills-grid,
-    .lab-groups {
+    .grid {
       display: grid;
-      gap: 1.15rem;
+      gap: 1rem;
     }
 
     .projects-grid {
@@ -264,33 +253,32 @@
     }
 
     .skills-grid {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
     }
 
-    .lab-groups {
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    .labs-grid {
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
     }
 
     .card {
-      background: rgba(255,255,255,0.9);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: var(--shadow-sm);
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.64);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
     }
 
     .project-card,
-    .skill-group,
-    .lab-unit {
-      padding: 1.35rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    }
-
-    .project-card:hover,
-    .skill-group:hover,
-    .lab-unit:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--border-strong);
+    .skill-card,
+    .lab-card {
+      padding: 1.4rem;
     }
 
     .project-icon {
@@ -299,13 +287,14 @@
       display: grid;
       place-items: center;
       border-radius: 14px;
-      background: var(--surface-2);
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
       margin-bottom: 0.9rem;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
 
     .project-category,
-    .skill-group-title {
+    .skill-title {
       color: var(--accent);
       font-size: 0.78rem;
       font-weight: 700;
@@ -315,24 +304,24 @@
     }
 
     .project-title,
-    .lab-unit-title {
-      font-size: 1.05rem;
+    .lab-title {
+      font-size: 1.04rem;
       font-weight: 700;
-      line-height: 1.35;
-      margin-bottom: 0.65rem;
+      line-height: 1.36;
       letter-spacing: -0.02em;
+      margin-bottom: 0.65rem;
     }
 
     .project-desc,
-    .lab-unit-items li,
-    .contact-copy {
+    .lab-list li,
+    .contact-text p {
       color: var(--muted);
       font-size: 0.93rem;
     }
 
     .project-desc { margin-bottom: 1rem; }
 
-    .project-tags {
+    .tags {
       display: flex;
       gap: 0.45rem;
       flex-wrap: wrap;
@@ -341,24 +330,23 @@
     .tag {
       padding: 0.28rem 0.62rem;
       border-radius: 999px;
+      background: rgba(255,255,255,0.68);
       border: 1px solid var(--border);
-      background: var(--surface-2);
+      color: #52525b;
       font-size: 0.74rem;
-      color: #4b5563;
       font-weight: 500;
     }
 
     .skill-list,
-    .lab-unit-items {
+    .lab-list {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.52rem;
     }
 
     .skill-item {
       display: flex;
-      gap: 0.5rem;
-      color: var(--text);
+      gap: 0.48rem;
       font-size: 0.93rem;
     }
 
@@ -368,55 +356,55 @@
       font-weight: 700;
     }
 
-    .lab-log {
+    .lab-wrapper {
       overflow: hidden;
+      padding: 0;
     }
 
-    .lab-log-header {
+    .lab-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      padding: 1.15rem 1.35rem;
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      border-bottom: 1px solid var(--border);
       flex-wrap: wrap;
+      padding: 1.15rem 1.35rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.38);
     }
 
-    .lab-log-title {
+    .lab-header-title {
       font-size: 0.95rem;
       font-weight: 700;
     }
 
     .lab-count {
+      padding: 0.34rem 0.72rem;
+      border-radius: 999px;
       background: var(--accent-soft);
       color: var(--accent);
-      border: 1px solid #dbe4ff;
-      border-radius: 999px;
-      padding: 0.34rem 0.72rem;
       font-size: 0.78rem;
       font-weight: 700;
     }
 
-    .lab-groups {
+    .labs-grid {
       padding: 1.3rem;
     }
 
-    .contact-box {
+    .contact-card {
+      padding: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1.5rem;
       flex-wrap: wrap;
-      padding: 2rem;
     }
 
-    .contact-title {
+    .contact-text h3 {
       font-size: 2rem;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
+      line-height: 1.02;
       font-weight: 800;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.38rem;
     }
 
     .contact-links {
@@ -426,16 +414,14 @@
     }
 
     footer {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 1.5rem 2.5rem;
+      padding: 0 0 2.6rem;
       color: var(--muted);
       font-size: 0.9rem;
     }
 
     .fade-in {
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(14px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
@@ -446,17 +432,14 @@
 
     @media (max-width: 768px) {
       .nav-inner { flex-direction: column; align-items: flex-start; }
-      .hero { padding: 2.4rem 1.4rem; border-radius: 24px; }
-      .hero-wrap { padding-top: 2.4rem; }
-      .hero-stats { flex-direction: column; }
-      .stat { width: 100%; }
-      .contact-box { padding: 1.4rem; }
-      .contact-title { font-size: 1.65rem; }
+      .hero { padding-top: 4.2rem; }
+      .stats { grid-template-columns: 1fr; }
+      .contact-card { padding: 1.4rem; }
+      .contact-text h3 { font-size: 1.65rem; }
     }
   </style>
 </head>
 <body>
-
   <nav>
     <div class="nav-inner">
       <a href="#" class="nav-logo">Yuka Sakai / IT Portfolio</a>
@@ -469,52 +452,53 @@
     </div>
   </nav>
 
-  <div class="hero-wrap">
-    <div class="hero">
-      <div class="eyebrow">Open to IT Opportunities</div>
-      <h1>Aspiring IT Professional with a <span class="accent">practical, hands-on foundation</span></h1>
-      <p class="hero-sub">
-        Portfolio showcasing hands-on lab experience in hardware, networking, troubleshooting, security, and cloud fundamentals through CompTIA A+ training.
-      </p>
+  <div class="wrap hero">
+    <div class="eyebrow">Open to IT Opportunities</div>
+    <h1>
+      Aspiring IT Professional
+      <span class="muted-line">with a practical, hands-on foundation</span>
+    </h1>
+    <p class="hero-sub">
+      Portfolio showcasing hands-on lab experience in hardware, networking, troubleshooting, security, and cloud fundamentals through CompTIA A+ training.
+    </p>
 
-      <div class="hero-stats">
-        <div class="stat">
-          <strong>80+</strong>
-          <span>Lab Hours</span>
-        </div>
-        <div class="stat">
-          <strong>40+</strong>
-          <span>Simulations</span>
-        </div>
-        <div class="stat">
-          <strong>10</strong>
-          <span>Domain Areas</span>
-        </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <strong>80+</strong>
+        <span>Lab Hours</span>
       </div>
-
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+      <div class="stat">
+        <strong>40+</strong>
+        <span>Simulations</span>
+      </div>
+      <div class="stat">
+        <strong>10</strong>
+        <span>Domain Areas</span>
       </div>
     </div>
   </div>
 
-  <hr class="divider" />
+  <div class="wrap"><hr class="divider"></div>
 
-  <section id="projects">
+  <section id="projects" class="section wrap">
     <div class="section-kicker fade-in">Technical Projects</div>
     <h2 class="section-title fade-in">Hands-On Lab Projects</h2>
     <p class="section-desc fade-in">
       Each project below is based on CompTIA A+ simulation labs and presented as practical examples of troubleshooting, configuration, and technical decision-making.
     </p>
 
-    <div class="projects-grid">
+    <div class="grid projects-grid">
       <div class="card project-card fade-in">
         <div class="project-icon">🖥️</div>
         <div class="project-category">Hardware</div>
         <div class="project-title">Desktop System Build &amp; Configuration</div>
         <p class="project-desc">Assembled a full desktop workstation from components, including motherboard, power supply, SATA storage, RAM, and video card. Verified successful setup and system stability.</p>
-        <div class="project-tags">
+        <div class="tags">
           <span class="tag">Motherboards</span>
           <span class="tag">SATA</span>
           <span class="tag">RAM</span>
@@ -527,7 +511,7 @@
         <div class="project-category">Hardware</div>
         <div class="project-title">Dual-Monitor A/V Workstation Setup</div>
         <p class="project-desc">Configured a dual-monitor setup and A/V workstation using both modern and legacy cabling. Installed display drivers and verified extended desktop functionality.</p>
-        <div class="project-tags">
+        <div class="tags">
           <span class="tag">DisplayPort</span>
           <span class="tag">HDMI</span>
           <span class="tag">Legacy Cables</span>
@@ -539,7 +523,7 @@
         <div class="project-category">Troubleshooting</div>
         <div class="project-title">BIOS/UEFI Security &amp; Boot Diagnostics</div>
         <p class="project-desc">Configured BIOS/UEFI settings, reviewed boot order and security options, and resolved startup and drive availability issues through structured troubleshooting.</p>
-        <div class="project-tags">
+        <div class="tags">
           <span class="tag">BIOS/UEFI</span>
           <span class="tag">Boot</span>
           <span class="tag">Security</span>
@@ -551,7 +535,7 @@
         <div class="project-category">Networking</div>
         <div class="project-title">Cross-Platform Network Connectivity Diagnostics</div>
         <p class="project-desc">Diagnosed and resolved a connectivity failure on a workstation moving from a corporate domain to a SOHO environment using ping tests and TCP/IP auditing.</p>
-        <div class="project-tags">
+        <div class="tags">
           <span class="tag">TCP/IP</span>
           <span class="tag">DHCP</span>
           <span class="tag">ping</span>
@@ -564,7 +548,7 @@
         <div class="project-category">Networking</div>
         <div class="project-title">SOHO Wireless Network Installation</div>
         <p class="project-desc">Installed and secured a small office/home office Wi-Fi network, configured wireless security settings, and connected devices through switching infrastructure.</p>
-        <div class="project-tags">
+        <div class="tags">
           <span class="tag">Wi-Fi</span>
           <span class="tag">WPA2</span>
           <span class="tag">Switch</span>
@@ -577,7 +561,7 @@
         <div class="project-category">Cloud</div>
         <div class="project-title">Azure VM Management &amp; Virtualization</div>
         <p class="project-desc">Worked with Azure interfaces to provision virtual machines, manage storage resources, and create virtual hard disks while building familiarity with cloud infrastructure concepts.</p>
-        <div class="project-tags">
+        <div class="tags">
           <span class="tag">Azure</span>
           <span class="tag">IaaS</span>
           <span class="tag">VHD</span>
@@ -590,7 +574,7 @@
         <div class="project-category">Print Devices</div>
         <div class="project-title">Network Printer Installation &amp; Configuration</div>
         <p class="project-desc">Selected, installed, and configured a printer for network use, enabling shared access for multiple workstations within a local environment.</p>
-        <div class="project-tags">
+        <div class="tags">
           <span class="tag">Network Print</span>
           <span class="tag">Driver Config</span>
           <span class="tag">LAN</span>
@@ -602,7 +586,7 @@
         <div class="project-category">Mobile Devices</div>
         <div class="project-title">Mobile Device Management &amp; Docking</div>
         <p class="project-desc">Managed mobile device settings and configured docking setups with monitors and peripherals to support practical workstation use.</p>
-        <div class="project-tags">
+        <div class="tags">
           <span class="tag">MDM</span>
           <span class="tag">Docking</span>
           <span class="tag">Peripherals</span>
@@ -611,18 +595,18 @@
     </div>
   </section>
 
-  <hr class="divider" />
+  <div class="wrap"><hr class="divider"></div>
 
-  <section id="skills">
+  <section id="skills" class="section wrap">
     <div class="section-kicker fade-in">Technical Skills</div>
     <h2 class="section-title fade-in">Skills Matrix</h2>
     <p class="section-desc fade-in">
       Core competencies developed through CompTIA A+ Core 1 and Core 2 simulation training.
     </p>
 
-    <div class="skills-grid">
-      <div class="card skill-group fade-in">
-        <div class="skill-group-title">Networking</div>
+    <div class="grid skills-grid">
+      <div class="card skill-card fade-in">
+        <div class="skill-title">Networking</div>
         <div class="skill-list">
           <div class="skill-item">IPv4 / IPv6 Addressing</div>
           <div class="skill-item">DHCP and DNS Configuration</div>
@@ -633,8 +617,8 @@
         </div>
       </div>
 
-      <div class="card skill-group fade-in">
-        <div class="skill-group-title">Hardware</div>
+      <div class="card skill-card fade-in">
+        <div class="skill-title">Hardware</div>
         <div class="skill-list">
           <div class="skill-item">Motherboard Installation</div>
           <div class="skill-item">Power Supply Troubleshooting</div>
@@ -645,8 +629,8 @@
         </div>
       </div>
 
-      <div class="card skill-group fade-in">
-        <div class="skill-group-title">OS &amp; Security</div>
+      <div class="card skill-card fade-in">
+        <div class="skill-title">OS &amp; Security</div>
         <div class="skill-list">
           <div class="skill-item">BIOS/UEFI Configuration</div>
           <div class="skill-item">BitLocker Encryption</div>
@@ -657,8 +641,8 @@
         </div>
       </div>
 
-      <div class="card skill-group fade-in">
-        <div class="skill-group-title">Cloud &amp; Virtualization</div>
+      <div class="card skill-card fade-in">
+        <div class="skill-title">Cloud &amp; Virtualization</div>
         <div class="skill-list">
           <div class="skill-item">Azure VM Provisioning</div>
           <div class="skill-item">Azure Storage Management</div>
@@ -668,8 +652,8 @@
         </div>
       </div>
 
-      <div class="card skill-group fade-in">
-        <div class="skill-group-title">Troubleshooting</div>
+      <div class="card skill-card fade-in">
+        <div class="skill-title">Troubleshooting</div>
         <div class="skill-list">
           <div class="skill-item">CompTIA Troubleshooting Model</div>
           <div class="skill-item">CLI Diagnostics (ping, ipconfig)</div>
@@ -679,8 +663,8 @@
         </div>
       </div>
 
-      <div class="card skill-group fade-in">
-        <div class="skill-group-title">Mobile &amp; Print</div>
+      <div class="card skill-card fade-in">
+        <div class="skill-title">Mobile &amp; Print</div>
         <div class="skill-list">
           <div class="skill-item">Mobile Device Management</div>
           <div class="skill-item">Laptop Dock Configuration</div>
@@ -691,25 +675,25 @@
     </div>
   </section>
 
-  <hr class="divider" />
+  <div class="wrap"><hr class="divider"></div>
 
-  <section id="labs">
+  <section id="labs" class="section wrap">
     <div class="section-kicker fade-in">Lab History</div>
     <h2 class="section-title fade-in">Full Technical Lab Log</h2>
     <p class="section-desc fade-in">
       Completed through the CompTIA A+ CertMaster simulation environment and grouped by domain.
     </p>
 
-    <div class="card lab-log fade-in">
-      <div class="lab-log-header">
-        <span class="lab-log-title">Completed Technical Lab History</span>
+    <div class="card lab-wrapper fade-in">
+      <div class="lab-header">
+        <span class="lab-header-title">Completed Technical Lab History</span>
         <span class="lab-count">40+ Labs Completed</span>
       </div>
 
-      <div class="lab-groups">
-        <div class="card lab-unit">
-          <div class="lab-unit-title">2.0 Motherboards &amp; Connectors</div>
-          <ul class="lab-unit-items">
+      <div class="grid labs-grid">
+        <div class="card lab-card">
+          <div class="lab-title">2.0 Motherboards &amp; Connectors</div>
+          <ul class="lab-list">
             <li>2.1.2 — Explore the Lab Interface</li>
             <li>2.1.7 — Install USB Devices</li>
             <li>2.1.16 — Set Up a Desktop Computer</li>
@@ -720,9 +704,9 @@
           </ul>
         </div>
 
-        <div class="card lab-unit">
-          <div class="lab-unit-title">3.0 Installing System Devices</div>
-          <ul class="lab-unit-items">
+        <div class="card lab-card">
+          <div class="lab-title">3.0 Installing System Devices</div>
+          <ul class="lab-list">
             <li>3.1.2 — Install a Power Supply</li>
             <li>3.1.9 — Troubleshoot Power Supply Problems</li>
             <li>3.2.12 — Install SATA Devices</li>
@@ -732,9 +716,9 @@
           </ul>
         </div>
 
-        <div class="card lab-unit">
-          <div class="lab-unit-title">4.0 Troubleshooting PC Hardware</div>
-          <ul class="lab-unit-items">
+        <div class="card lab-card">
+          <div class="lab-title">4.0 Troubleshooting PC Hardware</div>
+          <ul class="lab-list">
             <li>4.1.2 — Find BIOS/UEFI Settings</li>
             <li>4.1.10 — Configure BIOS/UEFI Security</li>
             <li>4.2.2 — Troubleshoot System Power</li>
@@ -747,9 +731,9 @@
           </ul>
         </div>
 
-        <div class="card lab-unit">
-          <div class="lab-unit-title">5.0 Local Networking Hardware</div>
-          <ul class="lab-unit-items">
+        <div class="card lab-card">
+          <div class="lab-title">5.0 Local Networking Hardware</div>
+          <ul class="lab-list">
             <li>5.2.2 — Select and Install a Network Adapter</li>
             <li>5.2.5 — Connect Patch Panel Cables</li>
             <li>5.2.8 — Connect Computers with a Switch</li>
@@ -758,9 +742,9 @@
           </ul>
         </div>
 
-        <div class="card lab-unit">
-          <div class="lab-unit-title">6.0 Network Addressing &amp; Internet</div>
-          <ul class="lab-unit-items">
+        <div class="card lab-card">
+          <div class="lab-title">6.0 Network Addressing &amp; Internet</div>
+          <ul class="lab-list">
             <li>6.1.4 — Connect a Cable Modem</li>
             <li>6.1.6 — Connect Fiber Optic Cables</li>
             <li>6.2.7 — Configure IP Addresses</li>
@@ -768,18 +752,18 @@
           </ul>
         </div>
 
-        <div class="card lab-unit">
-          <div class="lab-unit-title">7.0 Supporting Network Services</div>
-          <ul class="lab-unit-items">
+        <div class="card lab-card">
+          <div class="lab-title">7.0 Supporting Network Services</div>
+          <ul class="lab-list">
             <li>7.2.2 — Use a Proxy Server</li>
             <li>7.3.3 — Fix a Network Connection</li>
             <li>7.4 — Troubleshoot a Network Issue</li>
           </ul>
         </div>
 
-        <div class="card lab-unit">
-          <div class="lab-unit-title">8.0 Virtualization &amp; Cloud</div>
-          <ul class="lab-unit-items">
+        <div class="card lab-card">
+          <div class="lab-title">8.0 Virtualization &amp; Cloud</div>
+          <ul class="lab-list">
             <li>8.1.3 — Explore Virtualization</li>
             <li>8.1.6 — Create Virtual Hard Disks</li>
             <li>8.2.4 — Use the Azure Interface</li>
@@ -787,18 +771,18 @@
           </ul>
         </div>
 
-        <div class="card lab-unit">
-          <div class="lab-unit-title">9.0 Mobile Devices</div>
-          <ul class="lab-unit-items">
+        <div class="card lab-card">
+          <div class="lab-title">9.0 Mobile Devices</div>
+          <ul class="lab-list">
             <li>9.1.4 — Manage Mobile Devices</li>
             <li>9.1.11 — Configure Laptop Dock &amp; Peripherals</li>
             <li>9.5 — Challenge: Mobile Hardware Support</li>
           </ul>
         </div>
 
-        <div class="card lab-unit">
-          <div class="lab-unit-title">10.0 Print Devices</div>
-          <ul class="lab-unit-items">
+        <div class="card lab-card">
+          <div class="lab-title">10.0 Print Devices</div>
+          <ul class="lab-list">
             <li>10.1.4 — Select and Install a Printer</li>
             <li>10.1.10 — Configure Network Printing</li>
           </ul>
@@ -807,13 +791,13 @@
     </div>
   </section>
 
-  <hr class="divider" />
+  <div class="wrap"><hr class="divider"></div>
 
-  <section id="contact">
-    <div class="card contact-box fade-in">
-      <div>
-        <div class="contact-title">Let’s Connect</div>
-        <p class="contact-copy">
+  <section id="contact" class="section wrap">
+    <div class="card contact-card fade-in">
+      <div class="contact-text">
+        <h3>Let’s Connect</h3>
+        <p>
           Currently seeking IT support or helpdesk opportunities. Open to both onsite and remote roles in the New York area.
         </p>
       </div>
@@ -824,9 +808,11 @@
     </div>
   </section>
 
-  <footer>
-    Built by Yuka Sakai · CompTIA A+ Candidate · New York, NY
-  </footer>
+  <div class="wrap">
+    <footer>
+      Built by Yuka Sakai · CompTIA A+ Candidate · New York, NY
+    </footer>
+  </div>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
